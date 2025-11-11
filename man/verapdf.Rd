@@ -4,10 +4,10 @@
 \alias{verapdf}
 \title{Call verapdf CLI}
 \usage{
-verapdf(...)
+verapdf(file)
 }
 \arguments{
-\item{...}{Additional params passed to the CLI}
+\item{file}{PDF file to check.}
 }
 \value{
 output from the CLI
