@@ -5,14 +5,14 @@ Utility to call verapdf command line interface.
 ## Usage
 
 ``` r
-verapdf(...)
+verapdf(file)
 ```
 
 ## Arguments
 
-- ...:
+- file:
 
-  Additional params passed to the CLI
+  PDF file to check.
 
 ## Value
 
