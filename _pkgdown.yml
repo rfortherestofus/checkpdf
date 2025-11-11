@@ -1,0 +1,21 @@
+url: https://rfortherestofus.github.io/checkpdf/
+home:
+  title: Check PDF accessibility
+
+authors:
+  Joseph Barbier:
+    role: [aut, cre]
+    email: joseph.barbierdarnal@gmail.com
+
+  David Keyes:
+    role: [aut, cph, cre]
+    email: david@rfortherestofus.com
+
+template:
+  bootstrap: 5
+  bootswatch: journal
+  github: https://github.com/rfortherestofus/checkpdf
+  light-switch: true
+
+pkgdown:
+  as_is: yes

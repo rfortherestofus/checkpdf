@@ -1,0 +1,48 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+name: R-CMD-check.yaml
+
+permissions: read-all
+
+jobs:
+  R-CMD-check:
+    runs-on: ubuntu-latest
+
+    name: ubuntu-latest (release)
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Typst CLI
+        run: |
+          TYPST_VERSION=0.14.0
+          curl -L -o typst.tar.xz "https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz"
+          tar -xf typst.tar.xz
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
+          typst --version
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: release
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
