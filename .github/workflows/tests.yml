@@ -25,6 +25,10 @@ jobs:
           sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
           typst --version
 
+      - name: Install verapdf
+        run: |
+          inst/verapdf/verapdf-install
+
       - name: Install R
         uses: r-lib/actions/setup-r@v2
         with:
