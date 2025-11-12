@@ -12,13 +12,13 @@ Source:
 [`DESCRIPTION`](https://github.com/rfortherestofus/checkpdf/blob/main/DESCRIPTION)
 
 Barbier J, Keyes D (2025). *checkpdf: Check, Validate, And Report PDF
-Accessibility*. R package version 0.0.9,
+Accessibility*. R package version 0.0.1,
 <https://rfortherestofus.github.io/checkpdf/>.
 
     @Manual{,
       title = {checkpdf: Check, Validate, And Report PDF Accessibility},
       author = {Joseph Barbier and David Keyes},
       year = {2025},
-      note = {R package version 0.0.9},
+      note = {R package version 0.0.1},
       url = {https://rfortherestofus.github.io/checkpdf/},
     }

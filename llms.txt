@@ -1,11 +1,58 @@
-# checkpdf
+# checkpdf: Check, validate, and report PDF accessibility
+
+> \[!WARNING\]  
+> work in progress
+
+[checkpdf](https://rfortherestofus.github.io/checkpdf/) is an R package
+that aims to make super simple to verify PDF files accessibility. It’s
+built on top of [verapdf](https://github.com/veraPDF/veraPDF-library)
+(which does all the hard work under the hood) and leverages it to give
+detailed reports about what’s wrong with your PDFs.
+
+  
+
+## Installation
+
+``` r
+# install.packages("pak")
+pak::pkg_install("rfortherestofus/checkpdf")
+```
+
+  
+
+## Usage
+
+``` r
+library(checkpdf)
+```
+
+- Check that a PDF is PDF/UA-1 compliant (gold standard):
+
+``` r
+is_pdf_compliant("report.pdf")
+```
 
 # Package index
 
 ## All functions
 
-- [`is_pdfa_compliant()`](https://rfortherestofus.github.io/checkpdf/reference/is_pdfa_compliant.md)
-  : Is PDF/A compliant?
+- [`is_pdf_compliant()`](https://rfortherestofus.github.io/checkpdf/reference/is_pdf_compliant.md)
+  : Does this PDF comply with accessibility standards?
 - [`verapdf()`](https://rfortherestofus.github.io/checkpdf/reference/verapdf.md)
   : Call verapdf CLI
 
+# Articles
+
+### Accessibility Guides
+
+- [What is PDF
+  accessibility?](https://rfortherestofus.github.io/checkpdf/articles/what-is-pdf-accessibility.md):
+- [How to make accessible
+  PDFs](https://rfortherestofus.github.io/checkpdf/articles/how-to-make-accessible-pdf.md):
+- [Accessibility
+  issues](https://rfortherestofus.github.io/checkpdf/articles/accessibility-issues.md):
+
+### checkpdf Guides
+
+- [How to verify PDF
+  accessibility](https://rfortherestofus.github.io/checkpdf/articles/how-to-verify-pdf-accessibility.md):

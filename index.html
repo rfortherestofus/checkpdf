@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">checkpdf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,19 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Accessibility Guides</h6></li>
+    <li><a class="dropdown-item" href="articles/what-is-pdf-accessibility.html">What is PDF accessibility?</a></li>
+    <li><a class="dropdown-item" href="articles/how-to-make-accessible-pdf.html">How to make accessible PDFs</a></li>
+    <li><a class="dropdown-item" href="articles/accessibility-issues.html">Accessibility issues</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>checkpdf Guides</h6></li>
+    <li><a class="dropdown-item" href="articles/how-to-verify-pdf-accessibility.html">How to verify PDF accessibility</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -54,10 +67,36 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="checkpdf">checkpdf<a class="anchor" aria-label="anchor" href="#checkpdf"></a>
+  <main id="main" class="col-md-9"><blockquote>
+<p>[!WARNING]<br>
+work in progress</p>
+</blockquote>
+<div class="section level1">
+<div class="page-header"><h1 id="checkpdf-check-validate-and-report-pdf-accessibility">checkpdf: Check, validate, and report PDF accessibility<a class="anchor" aria-label="anchor" href="#checkpdf-check-validate-and-report-pdf-accessibility"></a>
 </h1></div>
+<p><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a> is an R package that aims to make super simple to verify PDF files accessibility. It’s built on top of <a href="https://github.com/veraPDF/veraPDF-library" class="external-link">verapdf</a> (which does all the hard work under the hood) and leverages it to give detailed reports about what’s wrong with your PDFs.</p>
+<p><br></p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"rfortherestofus/checkpdf"</span><span class="op">)</span></span></code></pre></div>
+<p><br></p>
 </div>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a></span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Check that a PDF is PDF/UA-1 compliant (gold standard):</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
