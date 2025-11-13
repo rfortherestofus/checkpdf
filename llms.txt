@@ -36,6 +36,8 @@ is_pdf_compliant("report.pdf")
 
 ## All functions
 
+- [`accessibility_report()`](https://rfortherestofus.github.io/checkpdf/reference/accessibility_report.md)
+  : Accessibility report
 - [`is_pdf_compliant()`](https://rfortherestofus.github.io/checkpdf/reference/is_pdf_compliant.md)
   : Does this PDF comply with accessibility standards?
 - [`verapdf()`](https://rfortherestofus.github.io/checkpdf/reference/verapdf.md)
@@ -51,6 +53,8 @@ is_pdf_compliant("report.pdf")
   PDFs](https://rfortherestofus.github.io/checkpdf/articles/how-to-make-accessible-pdf.md):
 - [Accessibility
   issues](https://rfortherestofus.github.io/checkpdf/articles/accessibility-issues.md):
+- [Compliance
+  levels](https://rfortherestofus.github.io/checkpdf/articles/compliance-levels.md):
 
 ### checkpdf Guides
 

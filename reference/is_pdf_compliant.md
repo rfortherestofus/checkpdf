@@ -5,7 +5,7 @@ Check whether a given PDF file is compliant to PDF/UA-1 (default).
 ## Usage
 
 ``` r
-is_pdf_compliant(file, profile = "ua1")
+is_pdf_compliant(file, profile = "ua1", from_json = FALSE)
 ```
 
 ## Arguments
@@ -17,6 +17,11 @@ is_pdf_compliant(file, profile = "ua1")
 - profile:
 
   The validation profile to use. Default to `"ua1"` (recommended).
+
+- from_json:
+
+  Whether `file` is the JSON output or not. This is useful in other
+  functions to only call verapdf CLI once.
 
 ## Value
 

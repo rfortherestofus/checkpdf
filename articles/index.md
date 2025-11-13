@@ -8,6 +8,8 @@
   PDFs](https://rfortherestofus.github.io/checkpdf/articles/how-to-make-accessible-pdf.md):
 - [Accessibility
   issues](https://rfortherestofus.github.io/checkpdf/articles/accessibility-issues.md):
+- [Compliance
+  levels](https://rfortherestofus.github.io/checkpdf/articles/compliance-levels.md):
 
 ### checkpdf Guides
 

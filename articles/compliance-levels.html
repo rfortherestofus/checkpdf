@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Accessibility issues • checkpdf</title>
+<title>Compliance levels • checkpdf</title>
 <script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="accessibility-issues_files/libs/quarto-html/popper.min.js"></script><script src="accessibility-issues_files/libs/quarto-html/tippy.umd.min.js"></script><link href="accessibility-issues_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="accessibility-issues_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="compliance-levels_files/libs/quarto-html/popper.min.js"></script><script src="compliance-levels_files/libs/quarto-html/tippy.umd.min.js"></script><link href="compliance-levels_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="compliance-levels_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Accessibility issues">
+<meta property="og:title" content="Compliance levels">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -70,12 +70,12 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Accessibility issues</h1>
+      <h1>Compliance levels</h1>
 
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/rfortherestofus/checkpdf/blob/main/vignettes/accessibility-issues.qmd" class="external-link"><code>vignettes/accessibility-issues.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/rfortherestofus/checkpdf/blob/main/vignettes/compliance-levels.qmd" class="external-link"><code>vignettes/compliance-levels.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -84,41 +84,10 @@
 
 
 
-    <section class="level2"><h2 id="understanding-accessibility-issues">Understanding accessibility issues<a class="anchor" aria-label="anchor" href="#understanding-accessibility-issues"></a>
-</h2>
-<p>When creating PDFs, accessibility issues are the most common barriers that prevent people with disabilities from reading and interacting with content. These issues typically arise from missing structure, incorrect tagging, or visual-only information that assistive technologies can’t interpret. Identifying and fixing these problems ensures that your documents are inclusive, compliant with accessibility standards, and usable by everyone.</p>
-<p>Below are the most frequent PDF accessibility issues and how to prevent them:</p>
-</section><section class="level2"><h2 id="missing-tags">Missing Tags<a class="anchor" aria-label="anchor" href="#missing-tags"></a>
-</h2>
-<p>Tags define the structure of a PDF so screen readers can understand it. <strong>How to avoid it:</strong> Always tag your document before exporting it. Use headings, paragraphs, and list styles in Word or InDesign so the export tool generates proper tags automatically.</p>
-</section><section class="level2"><h2 id="incorrect-reading-order">Incorrect Reading Order<a class="anchor" aria-label="anchor" href="#incorrect-reading-order"></a>
-</h2>
-<p>A screen reader follows the tag order, not the visual layout. <strong>How to avoid it:</strong> Check the reading order in your PDF editor to make sure the logical flow matches how the document is meant to be read.</p>
-</section><section class="level2"><h2 id="no-document-title">No Document Title<a class="anchor" aria-label="anchor" href="#no-document-title"></a>
-</h2>
-<p>Without a title, a screen reader or browser may only show the file name. <strong>How to avoid it:</strong> Set the document title in the PDF properties under “Description” or when exporting from your authoring tool.</p>
-</section><section class="level2"><h2 id="images-without-alternative-text">Images Without Alternative Text<a class="anchor" aria-label="anchor" href="#images-without-alternative-text"></a>
-</h2>
-<p>Screen readers can’t describe images unless alt text is provided. <strong>How to avoid it:</strong> Add meaningful alternative text to each image that conveys its purpose, or mark decorative images as artifacts.</p>
-</section><section class="level2"><h2 id="unlabeled-tables">Unlabeled Tables<a class="anchor" aria-label="anchor" href="#unlabeled-tables"></a>
-</h2>
-<p>Tables need headers and structure for navigation. <strong>How to avoid it:</strong> Use table headers and ensure merged cells are tagged correctly. Avoid using tables for layout.</p>
-</section><section class="level2"><h2 id="improper-heading-levels">Improper Heading Levels<a class="anchor" aria-label="anchor" href="#improper-heading-levels"></a>
-</h2>
-<p>Skipping from Heading 1 to Heading 4 breaks the logical hierarchy. <strong>How to avoid it:</strong> Follow a consistent heading structure (H1 → H2 → H3) so users can navigate by section.</p>
-</section><section class="level2"><h2 id="low-color-contrast">Low Color Contrast<a class="anchor" aria-label="anchor" href="#low-color-contrast"></a>
-</h2>
-<p>Text that blends into the background is unreadable for users with low vision. <strong>How to avoid it:</strong> Maintain a contrast ratio of at least 4.5:1 for body text and 3:1 for large text, as per WCAG standards.</p>
-</section><section class="level2"><h2 id="scanned-images-of-text">Scanned Images of Text<a class="anchor" aria-label="anchor" href="#scanned-images-of-text"></a>
-</h2>
-<p>Scanned pages are often just pictures of text and can’t be read by assistive tech. <strong>How to avoid it:</strong> Use OCR (Optical Character Recognition) to convert scanned text into selectable, searchable text.</p>
-</section><section class="level2"><h2 id="missing-language-specification">Missing Language Specification<a class="anchor" aria-label="anchor" href="#missing-language-specification"></a>
-</h2>
-<p>Assistive tools need to know the document’s language to pronounce words correctly. <strong>How to avoid it:</strong> Set the document’s primary language in the PDF’s metadata.</p>
-</section><section class="level2"><h2 id="no-bookmarks-in-long-documents">*No Bookmarks in Long Documents<a class="anchor" aria-label="anchor" href="#no-bookmarks-in-long-documents"></a>
-</h2>
-<p>Without bookmarks, navigation becomes difficult. <strong>How to avoid it:</strong> Add bookmarks for main sections and headings in longer PDFs.</p>
-</section><script id="quarto-html-after-body" type="application/javascript">
+
+
+
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -201,8 +170,7 @@
       }
     }
   });
-  </script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
+  </script></main>
 </div>
 
 
