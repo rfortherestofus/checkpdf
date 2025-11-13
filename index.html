@@ -68,14 +68,15 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><blockquote>
+  <main id="main" class="col-md-9"><p><br></p>
+<blockquote>
 <p>[!WARNING]<br>
 work in progress</p>
 </blockquote>
 <div class="section level1">
 <div class="page-header"><h1 id="checkpdf-check-validate-and-report-pdf-accessibility">checkpdf: Check, validate, and report PDF accessibility<a class="anchor" aria-label="anchor" href="#checkpdf-check-validate-and-report-pdf-accessibility"></a>
 </h1></div>
-<p><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a> is an R package that aims to make super simple to verify PDF files accessibility. It’s built on top of <a href="https://github.com/veraPDF/veraPDF-library" class="external-link">verapdf</a> (which does all the hard work under the hood) and leverages it to give detailed reports about what’s wrong with your PDFs.</p>
+<p><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a> is an R package that aims to make checking the accessibility of PDF files as easy as possible. It relies on <a href="https://github.com/veraPDF/veraPDF-library" class="external-link">verapdf</a> (which does all the hard work in the background) and uses it to provide detailed reports on issues found in your PDF files.</p>
 <p><br></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -91,10 +92,15 @@ work in progress</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a></span><span class="op">)</span></span></code></pre></div>
 <ul>
-<li>Check that a PDF is PDF/UA-1 compliant (gold standard):</li>
+<li>Check that a PDF is PDF/UA-1 compliant:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Generate an HTML accessibility report:</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 
