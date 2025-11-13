@@ -27,6 +27,7 @@ articles:
       - what-is-pdf-accessibility
       - how-to-make-accessible-pdf
       - accessibility-issues
+      - compliance-levels
   - title: checkpdf Guides
     navbar: checkpdf Guides
     contents:

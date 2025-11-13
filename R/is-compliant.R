@@ -5,6 +5,8 @@
 #'
 #' @param file PDF file to check.
 #' @param profile The validation profile to use. Default to `"ua1"` (recommended).
+#' @param from_json Whether `file` is the JSON output or not. This is useful in
+#' other functions to only call verapdf CLI once.
 #'
 #' @return A logical
 #'
@@ -15,8 +17,13 @@
 #' is_pdf_compliant("report.pdf")
 #' is_pdf_compliant("report.pdf", profile="ua2")
 #' }
-is_pdf_compliant <- function(file, profile = "ua1") {
-  json <- verapdf(file = file, profile = profile, format = "json")
+is_pdf_compliant <- function(file, profile = "ua1", from_json = FALSE) {
+  if (from_json) {
+    json <- file
+  } else {
+    json <- verapdf(file = file, profile = profile, format = "json")
+  }
+
   is_compliant <- json$report$jobs$validationResult[[1]]$compliant
   return(is_compliant)
 }

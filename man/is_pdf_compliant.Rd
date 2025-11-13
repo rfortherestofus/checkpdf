@@ -4,12 +4,15 @@
 \alias{is_pdf_compliant}
 \title{Does this PDF comply with accessibility standards?}
 \usage{
-is_pdf_compliant(file, profile = "ua1")
+is_pdf_compliant(file, profile = "ua1", from_json = FALSE)
 }
 \arguments{
 \item{file}{PDF file to check.}
 
 \item{profile}{The validation profile to use. Default to \code{"ua1"} (recommended).}
+
+\item{from_json}{Whether \code{file} is the JSON output or not. This is useful in
+other functions to only call verapdf CLI once.}
 }
 \value{
 A logical
