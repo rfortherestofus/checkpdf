@@ -9,7 +9,6 @@ Utility to call verapdf command line interface. It requires the
 verapdf(
   file,
   write_to = NULL,
-  format = c("json", "xml"),
   profile = c("ua1", "ua2", "1a", "1b", "2a", "2b", "2u", "3a", "3b", "3u", "4", "4f",
     "4e")
 )
@@ -24,10 +23,6 @@ verapdf(
 - write_to:
 
   Path to output file. If `NULL`, does not write.
-
-- format:
-
-  Output format. Default to `"json"`.
 
 - profile:
 
