@@ -7,7 +7,6 @@
 verapdf(
   file,
   write_to = NULL,
-  format = c("json", "xml"),
   profile = c("ua1", "ua2", "1a", "1b", "2a", "2b", "2u", "3a", "3b", "3u", "4", "4f",
     "4e")
 )
@@ -16,8 +15,6 @@ verapdf(
 \item{file}{PDF file to check.}
 
 \item{write_to}{Path to output file. If \code{NULL}, does not write.}
-
-\item{format}{Output format. Default to \code{"json"}.}
 
 \item{profile}{The validation profile to use. Default to \code{"ua1"} (recommended).}
 }

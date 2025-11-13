@@ -31,3 +31,4 @@ dev.R
 \.typ$
 \.json$
 \.xml$
+^here.html

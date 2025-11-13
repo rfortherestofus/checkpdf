@@ -23,5 +23,4 @@ VignetteBuilder: quarto, knitr
 Imports: 
     glue,
     jsonlite,
-    utils,
-    xml2
+    utils

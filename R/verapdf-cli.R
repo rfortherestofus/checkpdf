@@ -6,7 +6,6 @@
 #'
 #' @param file PDF file to check.
 #' @param write_to Path to output file. If `NULL`, does not write.
-#' @param format Output format. Default to `"json"`.
 #' @param profile The validation profile to use. Default to `"ua1"` (recommended).
 #'
 #' @returns output from the CLI
@@ -15,7 +14,6 @@
 verapdf <- function(
   file,
   write_to = NULL,
-  format = c("json", "xml"),
   profile = c(
     "ua1",
     "ua2",
@@ -32,7 +30,6 @@ verapdf <- function(
     "4e"
   )
 ) {
-  format <- match.arg(format)
   profile <- match.arg(profile)
 
   if (!file.exists(file)) {
@@ -53,25 +50,19 @@ verapdf <- function(
   }
 
   cmd <- "verapdf"
-  args <- c("--format", format, "--flavour", profile, file)
+  args <- c("--format", "json", "--flavour", profile, file)
 
   out_cli <- suppressWarnings(system2(cmd, args, stdout = TRUE))
 
   # parse CLI output
-  if (format == "json") {
-    out <- jsonlite::fromJSON(paste(out_cli, collapse = "\n"))
-  } else if (format == "xml") {
-    out <- xml2::read_xml(out_cli |> paste0(collapse = " "))
-  }
+  out <- jsonlite::fromJSON(paste(out_cli, collapse = "\n"))
 
   # optionnaly write to file
   if (!is.null(write_to)) {
-    if (format == "json") {
-      jsonlite::write_json(out, write_to, auto_unbox = TRUE, pretty = TRUE)
-    } else if (format == "xml") {
-      xml2::write_xml(out, write_to)
-    }
+    jsonlite::write_json(out, write_to, auto_unbox = TRUE, pretty = TRUE)
   }
+
+  out <- structure(out, class = "verapdf")
 
   return(out)
 }

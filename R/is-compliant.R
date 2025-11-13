@@ -21,7 +21,7 @@ is_pdf_compliant <- function(file, profile = "ua1", from_json = FALSE) {
   if (from_json) {
     json <- file
   } else {
-    json <- verapdf(file = file, profile = profile, format = "json")
+    json <- verapdf(file = file, profile = profile)
   }
 
   is_compliant <- json$report$jobs$validationResult[[1]]$compliant

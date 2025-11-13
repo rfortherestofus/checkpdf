@@ -19,7 +19,7 @@ accessibility_report <- function(
   output_file = NULL,
   open = TRUE
 ) {
-  json <- verapdf(file = file, profile = profile, format = "json")
+  json <- verapdf(file = file, profile = profile)
   verapdf_version <- json$report$buildInformation$releaseDetails$version[[1]]
   is_compliant <- is_pdf_compliant(json, from_json = TRUE)
   results <- json$report$jobs$validationResult[[1]]
