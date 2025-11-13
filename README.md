@@ -1,9 +1,11 @@
+<br>
+
 > [!WARNING]  
 > work in progress
 
 # checkpdf: Check, validate, and report PDF accessibility
 
-`{checkpdf}` is an R package that aims to make super simple to verify PDF files accessibility. It's built on top of [verapdf](https://github.com/veraPDF/veraPDF-library) (which does all the hard work under the hood) and leverages it to give detailed reports about what's wrong with your PDFs.
+`{checkpdf}` is an R package that aims to make checking the accessibility of PDF files as easy as possible. It relies on [verapdf](https://github.com/veraPDF/veraPDF-library) (which does all the hard work in the background) and uses it to provide detailed reports on issues found in your PDF files.
 
 <br>
 
@@ -22,8 +24,14 @@ pak::pkg_install("rfortherestofus/checkpdf")
 library(checkpdf)
 ```
 
-- Check that a PDF is PDF/UA-1 compliant (gold standard):
+- Check that a PDF is PDF/UA-1 compliant:
 
 ```r
 is_pdf_compliant("report.pdf")
+```
+
+- Generate an HTML accessibility report:
+
+```r
+accessibility_report("report.pdf")
 ```

@@ -11,3 +11,5 @@ inst/doc
 *.tar.gz
 *.json
 *.xml
+*.html
+!inst/report/*.html
