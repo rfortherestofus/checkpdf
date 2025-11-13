@@ -33,12 +33,29 @@ library(checkpdf)
 
 ``` r
 is_pdf_compliant("report.pdf")
+#> TRUE
 ```
 
 - Generate an HTML accessibility report:
 
 ``` r
-accessibility_report("report.pdf")
+accessibility_report("report.pdf") # will open your browser
+```
+
+- Summary
+
+``` r
+accessibility_summary("report.pdf")
+#> PDF Accessibility Summary
+#> =========================
+#> Verapdf version:  1.28.2
+#> Compliant:  No
+#> Profile:  ua1
+#>
+#> Passed Rules:   95
+#> Passed Checks:  591
+#> Failed Rules:   11
+#> Failed Checks:  195
 ```
 
 # Package index
