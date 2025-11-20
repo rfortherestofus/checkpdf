@@ -25,27 +25,29 @@ pak::pkg_install("rfortherestofus/checkpdf")
 
 ## Usage
 
+- Make sure to install verapdf (should only do once):
+
 ``` r
-library(checkpdf)
+checkpdf::install_verapdf()
 ```
 
 - Check that a PDF is PDF/UA-1 compliant:
 
 ``` r
-is_pdf_compliant("report.pdf")
+checkpdf::is_pdf_compliant("report.pdf")
 #> TRUE
 ```
 
 - Generate an HTML accessibility report:
 
 ``` r
-accessibility_report("report.pdf") # will open your browser
+checkpdf::accessibility_report("report.pdf") # will open your browser
 ```
 
 - Summary
 
 ``` r
-accessibility_summary("report.pdf")
+checkpdf::accessibility_summary("report.pdf")
 #> PDF Accessibility Summary
 #> =========================
 #> Verapdf version:  1.28.2
@@ -57,6 +59,14 @@ accessibility_summary("report.pdf")
 #> Failed Rules:   11
 #> Failed Checks:  195
 ```
+
+  
+
+## Licenses
+
+This packages is licensed under the MIT license but this package also
+bundles the verapdf installer, which is licensed under MPL-2.0. Your use
+of verapdf is subject to the MPL-2.0 license.
 
 # Package index
 
