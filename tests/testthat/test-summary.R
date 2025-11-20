@@ -1,5 +1,10 @@
 test_that("is PDF/A compliant", {
-  pdf <- "inst/pdf/not-compliant-1.pdf"
+  pdf <- system.file(
+    "pdf",
+    "not-compliant-1.pdf",
+    package = "checkpdf",
+    mustWork = TRUE
+  )
   output <- capture.output(accessibility_summary(pdf))
   expected <- c(
     "PDF Accessibility Summary",
@@ -15,7 +20,12 @@ test_that("is PDF/A compliant", {
   )
   expect_equal(output, expected)
 
-  pdf <- "inst/pdf/compliant-1.pdf"
+  pdf <- system.file(
+    "pdf",
+    "compliant-1.pdf",
+    package = "checkpdf",
+    mustWork = TRUE
+  )
   output <- capture.output(accessibility_summary(pdf))
   expected <- c(
     "PDF Accessibility Summary",
