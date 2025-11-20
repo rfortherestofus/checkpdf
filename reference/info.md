@@ -23,14 +23,16 @@ get_verapdf_version(x)
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-verapdf("inst/pdf/not-compliant-1.pdf") |>
+pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "checkpdf")
+verapdf(pdf_file) |>
   get_total_failed_checks()
+#> [1] 195
 
-verapdf("inst/pdf/not-compliant-1.pdf") |>
+verapdf(pdf_file) |>
   get_total_failed_rules()
+#> [1] 11
 
-verapdf("inst/pdf/not-compliant-1.pdf") |>
+verapdf(pdf_file) |>
   get_verapdf_version()
-} # }
+#> [1] "1.28.2"
 ```

@@ -66,4 +66,5 @@ checkpdf::accessibility_summary("report.pdf")
 
 This packages is licensed under the MIT license but this package also
 bundles the verapdf installer, which is licensed under MPL-2.0. Your use
-of verapdf is subject to the MPL-2.0 license.
+of verapdf is subject to the MPL-2.0 license. See
+`inst/LICENSE.verapdf`.
