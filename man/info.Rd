@@ -22,6 +22,7 @@ about PDF accessibility.
 }
 \examples{
 pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "checkpdf")
+
 verapdf(pdf_file) |>
   get_total_failed_checks()
 
@@ -30,5 +31,4 @@ verapdf(pdf_file) |>
 
 verapdf(pdf_file) |>
   get_verapdf_version()
-
 }
