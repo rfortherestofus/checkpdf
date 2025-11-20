@@ -42,8 +42,9 @@ verapdf <- function(
 
   if (Sys.which("verapdf") == "") {
     stop(
-      "`verapdf` CLI not found on PATH. How to install: ",
-      "https://docs.verapdf.org/install/"
+      "`verapdf` CLI not found on PATH. How to install:\n",
+      "- Option 1: `checkpdf::install_verapdf()`\n",
+      "- Option 2: https://docs.verapdf.org/install/"
     )
   }
 

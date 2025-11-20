@@ -30,4 +30,3 @@ dev.R
 ^release.sh
 \.typ$
 \.json$
-\.xml$

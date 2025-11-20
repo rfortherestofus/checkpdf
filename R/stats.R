@@ -7,16 +7,15 @@
 #' @param x Output from `verapdf()`
 #'
 #' @examples
-#' \dontrun{
-#' verapdf("inst/pdf/not-compliant-1.pdf") |>
+#' pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "checkpdf")
+#' verapdf(pdf_file) |>
 #'   get_total_failed_checks()
 #'
-#' verapdf("inst/pdf/not-compliant-1.pdf") |>
+#' verapdf(pdf_file) |>
 #'   get_total_failed_rules()
 #'
-#' verapdf("inst/pdf/not-compliant-1.pdf") |>
+#' verapdf(pdf_file) |>
 #'   get_verapdf_version()
-#' }
 #'
 #' @name info
 NULL
