@@ -37,9 +37,5 @@ jobs:
           devtools::load_all()
           install_verapdf()
           cat("Sys.which('verapdf'): '", Sys.which("verapdf"), "'", sep="")
+          devtools::check()
         shell: Rscript {0}
-
-      - uses: r-lib/actions/check-r-package@v2
-        with:
-          upload-snapshots: true
-          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'

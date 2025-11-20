@@ -9,5 +9,4 @@
 library(testthat)
 library(checkpdf)
 
-install_verapdf()
 test_check("checkpdf")
