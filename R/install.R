@@ -1,3 +1,9 @@
+#' @title Install verapdf CLI
+#'
+#' @description
+#' Simple utility function to install verapdf.
+#'
+#' @export
 install_verapdf <- function() {
   script_install <- if (is_unix()) "verapdf-install" else "verapdf-install.bat"
 
