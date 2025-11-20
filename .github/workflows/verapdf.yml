@@ -15,9 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Build verapdf
+      - name: Install veraPDF
         run: |
           wget https://software.verapdf.org/rel/verapdf-installer.zip
           unzip verapdf-installer.zip
           cd verapdf-greenfield-1.28.2
-          java -jar verapdf-izpack-installer-1.28.2.jar install
+          java -jar verapdf-izpack-installer-1.28.2.jar install path="$HOME/verapdf"
