@@ -17,7 +17,7 @@ jobs:
 
       - name: Build verapdf
         run: |
-          wget http://downloads.verapdf.org/rel/verapdf-installer.zip
+          wget https://software.verapdf.org/rel/verapdf-installer.zip
           unzip verapdf-installer.zip
           cd verapdf-greenfield-1.28.2
-          ./verapdf-install
+          java -jar verapdf-izpack-installer-1.28.2.jar install
