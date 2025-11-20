@@ -8,6 +8,15 @@
 #'
 #' @name info
 #'
+#' @note
+#' It is important to understand the difference between
+#' rules and checks. A rule that has been failed may
+#' be "Missing alternative text on images", and each rule
+#' may have several checks that have been failed.
+#' For example, if the rule "Missing alt text on images" occurs
+#' 10 times in a given PDF, that gives us 10 failed checks
+#' for that rule.
+#'
 #' @examples
 #' pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "checkpdf")
 #'
