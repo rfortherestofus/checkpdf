@@ -11,5 +11,6 @@ inst/doc
 *.tar.gz
 *.json
 *.xml
+!docker-install.xml
 *.html
 !inst/report/*.html
