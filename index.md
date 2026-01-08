@@ -1,10 +1,5 @@
 # checkpdf: Check, validate, and report PDF accessibility
 
-  
-
-> \[!WARNING\]  
-> work in progress
-
 [checkpdf](https://rfortherestofus.github.io/checkpdf/) is an R package
 that aims to make checking the accessibility of PDF files as easy as
 possible. It relies on
