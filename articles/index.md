@@ -3,8 +3,8 @@
 ### Accessibility Guides
 
 - [What is PDF
-  accessibility?](https://rfortherestofus.github.io/checkpdf/articles/what-is-pdf-accessibility.md):
+  accessibility?](https://rfortherestofus.github.io/pdfcheck/articles/what-is-pdf-accessibility.md):
 - [Accessibility
-  issues](https://rfortherestofus.github.io/checkpdf/articles/accessibility-issues.md):
+  issues](https://rfortherestofus.github.io/pdfcheck/articles/accessibility-issues.md):
 - [Compliance
-  levels](https://rfortherestofus.github.io/checkpdf/articles/compliance-levels.md):
+  levels](https://rfortherestofus.github.io/pdfcheck/articles/compliance-levels.md):

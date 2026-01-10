@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Check PDF accessibility • checkpdf</title>
+<title>Check PDF accessibility • pdfcheck</title>
 <script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top " aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">checkpdf</a>
+    <a class="navbar-brand me-2" href="index.html">pdfcheck</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
@@ -39,7 +39,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/rfortherestofus/checkpdf/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/rfortherestofus/pdfcheck/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
@@ -56,16 +56,16 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="checkpdf-check-validate-and-report-pdf-accessibility">checkpdf: Check, validate, and report PDF accessibility<a class="anchor" aria-label="anchor" href="#checkpdf-check-validate-and-report-pdf-accessibility"></a>
+<div class="page-header"><h1 id="pdfcheck-check-validate-and-report-pdf-accessibility">pdfcheck: Check, validate, and report PDF accessibility<a class="anchor" aria-label="anchor" href="#pdfcheck-check-validate-and-report-pdf-accessibility"></a>
 </h1></div>
-<p><a href="https://rfortherestofus.github.io/checkpdf/">checkpdf</a> is an R package that aims to make checking the accessibility of PDF files as easy as possible. It relies on <a href="https://github.com/veraPDF/veraPDF-library" class="external-link">verapdf</a> (which does all the hard work in the background) and uses it to provide detailed reports on issues found in your PDF files.</p>
+<p><a href="https://rfortherestofus.github.io/pdfcheck/">pdfcheck</a> is an R package that aims to make checking the accessibility of PDF files as easy as possible. It relies on <a href="https://github.com/veraPDF/veraPDF-library" class="external-link">verapdf</a> (which does all the hard work in the background) and uses it to provide detailed reports on issues found in your PDF files.</p>
 <p><br></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"rfortherestofus/checkpdf"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"rfortherestofus/pdfcheck"</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div class="section level2">
@@ -75,7 +75,7 @@
 <li>Make sure to install verapdf*:</li>
 </ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/install_verapdf.html">install_verapdf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/install_verapdf.html">install_verapdf</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p>*Should only do once and is <strong>not</strong> necessary if you already have the verapdf cli on PATH</p>
 </blockquote>
@@ -84,11 +84,11 @@
 <li>Check that a PDF is PDF/UA-1 compliant:</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; TRUE</span></span>
 <span></span>
 <span><span class="co"># check for PDF/UA-2</span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span>, profile <span class="op">=</span> <span class="st">"ua2"</span><span class="op">)</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/is_pdf_compliant.html">is_pdf_compliant</a></span><span class="op">(</span><span class="st">"report.pdf"</span>, profile <span class="op">=</span> <span class="st">"ua2"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; FALSE</span></span></code></pre></div>
 <p>It works with many standards: <code>profile</code> can be any of <code>ua1</code>, <code>ua2</code>, <code>1a</code>, <code>1b</code>, <code>2a</code>, <code>2b</code>, <code>2u</code>, <code>3a</code>, <code>3b</code>, <code>3u</code>, <code>4</code>, <code>4f</code>, <code>4e</code>. Default is <code>ua1</code>. You can find their meaning <a href="https://docs.verapdf.org/cli/validation/#list-profiles" class="external-link">here</a>.</p>
 <p><br></p>
@@ -97,23 +97,23 @@
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Basic usage: this opens your browser</span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Explicit output file</span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
 <span>   <span class="st">"report.pdf"</span>,</span>
 <span>   output_file <span class="op">=</span> <span class="st">"report.html"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Do not open browser</span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
 <span>   <span class="st">"report.pdf"</span>,</span>
 <span>   output_file <span class="op">=</span> <span class="st">"report.html"</span>,</span>
 <span>   open <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Specify a different accessibility standard</span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_report.html">accessibility_report</a></span><span class="op">(</span></span>
 <span>   <span class="st">"report.pdf"</span>,</span>
 <span>   output_file <span class="op">=</span> <span class="st">"report.html"</span>,</span>
 <span>   open <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -124,7 +124,7 @@
 <li>Print an accessibility summary</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_summary.html">accessibility_summary</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/accessibility_summary.html">accessibility_summary</a></span><span class="op">(</span><span class="st">"report.pdf"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; PDF Accessibility Summary</span></span>
 <span><span class="co">#&gt; =========================</span></span>
 <span><span class="co">#&gt; Verapdf version:  1.28.2</span></span>
@@ -143,16 +143,16 @@
 <li>Get information and stats</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_total_failed_checks</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_total_failed_checks</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 195</span></span>
 <span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_total_failed_rules</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_total_failed_rules</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 11</span></span>
 <span></span>
-<span><span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">checkpdf</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_verapdf_version</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/verapdf.html">verapdf</a></span><span class="op">(</span><span class="va">pdf_file</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">pdfcheck</span><span class="fu">::</span><span class="fu"><a href="reference/info.html">get_verapdf_version</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; "1.28.2"</span></span></code></pre></div>
 <p><br></p>
 </div>
@@ -165,8 +165,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/rfortherestofus/checkpdf/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/rfortherestofus/checkpdf/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/rfortherestofus/pdfcheck/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/rfortherestofus/pdfcheck/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -182,7 +182,7 @@
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing checkpdf</a></li>
+<li><a href="authors.html#citation">Citing pdfcheck</a></li>
 </ul>
 </div>
 

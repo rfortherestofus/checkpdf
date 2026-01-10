@@ -18,7 +18,7 @@ get_verapdf_version(x)
 - x:
 
   Output from
-  [`verapdf()`](https://rfortherestofus.github.io/checkpdf/reference/verapdf.md)
+  [`verapdf()`](https://rfortherestofus.github.io/pdfcheck/reference/verapdf.md)
 
 ## Note
 
@@ -31,7 +31,7 @@ given PDF, that gives us 10 failed checks for that rule.
 ## Examples
 
 ``` r
-pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "checkpdf")
+pdf_file <- system.file("pdf", "not-compliant-1.pdf", package = "pdfcheck")
 
 verapdf(pdf_file) |>
   get_total_failed_checks()

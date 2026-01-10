@@ -9,16 +9,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/rfortherestofus/checkpdf/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/rfortherestofus/pdfcheck/blob/main/DESCRIPTION)
 
-Barbier J, Keyes D (2026). *checkpdf: Check, Validate, And Report PDF
+Barbier J, Keyes D (2026). *pdfcheck: Check, Validate, And Report PDF
 Accessibility*. R package version 0.1.0,
-<https://rfortherestofus.github.io/checkpdf/>.
+<https://rfortherestofus.github.io/pdfcheck/>.
 
     @Manual{,
-      title = {checkpdf: Check, Validate, And Report PDF Accessibility},
+      title = {pdfcheck: Check, Validate, And Report PDF Accessibility},
       author = {Joseph Barbier and David Keyes},
       year = {2026},
       note = {R package version 0.1.0},
-      url = {https://rfortherestofus.github.io/checkpdf/},
+      url = {https://rfortherestofus.github.io/pdfcheck/},
     }

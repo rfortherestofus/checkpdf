@@ -1,6 +1,6 @@
-# checkpdf: Check, validate, and report PDF accessibility
+# pdfcheck: Check, validate, and report PDF accessibility
 
-[checkpdf](https://rfortherestofus.github.io/checkpdf/) is an R package
+[pdfcheck](https://rfortherestofus.github.io/pdfcheck/) is an R package
 that aims to make checking the accessibility of PDF files as easy as
 possible. It relies on
 [verapdf](https://github.com/veraPDF/veraPDF-library) (which does all
@@ -13,7 +13,7 @@ on issues found in your PDF files.
 
 ``` r
 # install.packages("pak")
-pak::pkg_install("rfortherestofus/checkpdf")
+pak::pkg_install("rfortherestofus/pdfcheck")
 ```
 
   
@@ -23,7 +23,7 @@ pak::pkg_install("rfortherestofus/checkpdf")
 - Make sure to install verapdf\*:
 
 ``` r
-checkpdf::install_verapdf()
+pdfcheck::install_verapdf()
 ```
 
 > \*Should only do once and is **not** necessary if you already have the
@@ -34,11 +34,11 @@ checkpdf::install_verapdf()
 - Check that a PDF is PDF/UA-1 compliant:
 
 ``` r
-checkpdf::is_pdf_compliant("report.pdf")
+pdfcheck::is_pdf_compliant("report.pdf")
 #> TRUE
 
 # check for PDF/UA-2
-checkpdf::is_pdf_compliant("report.pdf", profile = "ua2")
+pdfcheck::is_pdf_compliant("report.pdf", profile = "ua2")
 #> FALSE
 ```
 
@@ -53,23 +53,23 @@ is `ua1`. You can find their meaning
 
 ``` r
 # Basic usage: this opens your browser
-checkpdf::accessibility_report("report.pdf")
+pdfcheck::accessibility_report("report.pdf")
 
 # Explicit output file
-checkpdf::accessibility_report(
+pdfcheck::accessibility_report(
    "report.pdf",
    output_file = "report.html"
 )
 
 # Do not open browser
-checkpdf::accessibility_report(
+pdfcheck::accessibility_report(
    "report.pdf",
    output_file = "report.html",
    open = FALSE
 )
 
 # Specify a different accessibility standard
-checkpdf::accessibility_report(
+pdfcheck::accessibility_report(
    "report.pdf",
    output_file = "report.html",
    open = FALSE,
@@ -82,7 +82,7 @@ checkpdf::accessibility_report(
 - Print an accessibility summary
 
 ``` r
-checkpdf::accessibility_summary("report.pdf")
+pdfcheck::accessibility_summary("report.pdf")
 #> PDF Accessibility Summary
 #> =========================
 #> Verapdf version:  1.28.2
@@ -109,16 +109,16 @@ checkpdf::accessibility_summary("report.pdf")
 - Get information and stats
 
 ``` r
-checkpdf::verapdf(pdf_file) |>
-  checkpdf::get_total_failed_checks()
+pdfcheck::verapdf(pdf_file) |>
+  pdfcheck::get_total_failed_checks()
 #> 195
 
-checkpdf::verapdf(pdf_file) |>
-  checkpdf::get_total_failed_rules()
+pdfcheck::verapdf(pdf_file) |>
+  pdfcheck::get_total_failed_rules()
 #> 11
 
-checkpdf::verapdf(pdf_file) |>
-  checkpdf::get_verapdf_version()
+pdfcheck::verapdf(pdf_file) |>
+  pdfcheck::get_verapdf_version()
 #> "1.28.2"
 ```
 
