@@ -186,10 +186,14 @@ body {
   color: #666;
 }
 
-#htmlwidget_container {
-  font-size: 1.2rem;
-}
-
 .rt-td-inner {
   padding: 30px 20px !important;
+}
+
+.details-content {
+  padding: 20px;
+}
+
+.details-content > p {
+  margin-top: 10px;
 }

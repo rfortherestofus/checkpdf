@@ -111,6 +111,8 @@ accessibility_report <- function(
   }
 
   if (nrow(failed_rules_df) > 0) {
+    failed_rules_df <- failed_rules_df |> mutate(cta_button = "Learn More")
+    options(reactable.static = TRUE)
     react_table <- reactable::reactable(
       failed_rules_df,
       defaultColDef = reactable::colDef(show = FALSE),
@@ -119,9 +121,26 @@ accessibility_report <- function(
           name = "Issue description",
           show = TRUE
         ),
-        rule_id = reactable::colDef(name = "Rule ID", width = 250, show = TRUE)
+        rule_id = reactable::colDef(name = "Rule ID", width = 190, show = TRUE),
+        cta_button = reactable::colDef(
+          name = "Details",
+          width = 150,
+          show = TRUE,
+          details = function(index) {
+            div(
+              class = "details-content",
+              p(strong("Rule ID: "), failed_rules_df[index, ]$rule_id),
+              p(strong("Explanation: "), failed_rules_df[index, ]$user_message),
+              p(
+                strong("ISO: "),
+                gsub("ISO ", "", failed_rules_df[index, ]$spec)
+              ),
+              p(strong("Clause: "), failed_rules_df[index, ]$clause),
+              p(strong("veraPDF Issue: "), failed_rules_df[index, ]$description)
+            )
+          }
+        )
       ),
-      rowStyle = list(cursor = "pointer"),
       searchable = TRUE,
       striped = TRUE,
       highlight = TRUE,
@@ -133,40 +152,6 @@ accessibility_report <- function(
           fontFamily = "Inter, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"
         ),
         searchInputStyle = list(width = "40%")
-      ),
-      onClick = JS(
-        "function(rowInfo, column) {
-    // Extract data from the row
-    const data = rowInfo.values;
-    const rawData = rowInfo.row; // Access hidden columns
-    
-    // Build the modal content
-    const content = `
-      <div id='custom-modal' style='position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;'>
-        <div style='background:white; padding:30px; border-radius:8px; max-width:600px; width:90%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); position:relative; font-family: sans-serif;'>
-          <span id='close-modal' style='position:absolute; top:10px; right:15px; cursor:pointer; font-size:24px; color:#aaa;'>&times;</span>
-          <h2 style='margin-top:0; color:#2c3e50;'>Rule Details</h2>
-          <hr style='border:0; border-top:1px solid #eee; margin:15px 0;'>
-          <p><strong>Rule ID:</strong> ${rawData.rule_id}</p>
-          <p><strong>Explanation:</strong> ${rawData.user_message}</p>
-          <p><strong>ISO:</strong> ${rawData.spec.replace('ISO ', '')}</p>
-          <p><strong>Clause:</strong> ${rawData.clause}</p>
-          <p><strong>veraPDF Issue:</strong> ${rawData.description}</p>
-        </div>
-      </div>
-    `;
-    
-    // Inject modal into body
-    document.body.insertAdjacentHTML('beforeend', content);
-    
-    // Close logic
-    const modal = document.getElementById('custom-modal');
-    modal.onclick = function(e) {
-      if (e.target.id === 'custom-modal' || e.target.id === 'close-modal') {
-        modal.remove();
-      }
-    };
-  }"
       )
     )
     table_file <- tempfile(fileext = ".html")
@@ -181,7 +166,11 @@ accessibility_report <- function(
     paste0(collapse = "\n")
 
   if (!is_compliant) {
-    issue_section <- '<br><h2 class="section-title">Issues requiring attention</h2>'
+    issue_section <- '
+    <br>
+    <h2 class="section-title">Issues requiring attention</h2>
+    <br>
+'
   } else {
     issue_section <- ""
   }
