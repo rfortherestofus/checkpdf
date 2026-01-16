@@ -10,7 +10,7 @@
 #'
 #' @return Path to the generated HTML report (invisibly)
 #'
-#' @import glue dplyr htmltools htmlwidgets
+#' @import glue dplyr htmltools htmlwidgets utils tibble
 #'
 #' @export
 accessibility_report <- function(

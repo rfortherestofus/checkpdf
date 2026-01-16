@@ -28,4 +28,5 @@ Imports:
     htmlwidgets,
     jsonlite,
     reactable,
+    tibble,
     utils
