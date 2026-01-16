@@ -10,7 +10,7 @@
 #'
 #' @return Path to the generated HTML report (invisibly)
 #'
-#' @import glue utils dplyr htmltools htmlwidgets
+#' @import glue dplyr htmltools htmlwidgets
 #'
 #' @export
 accessibility_report <- function(
@@ -24,9 +24,7 @@ accessibility_report <- function(
   is_compliant <- is_pdf_compliant(json, from_json = TRUE)
   results <- json$report$jobs$validationResult[[1]]
   n_passed_rules <- results$details$passedRules
-  n_passed_checks <- results$details$passedChecks
   n_failed_rules <- results$details$failedRules
-  n_failed_check <- results$details$failedChecks
   failed_rules <- results$details$ruleSummaries
 
   # Load user-friendly explanations
@@ -112,7 +110,6 @@ accessibility_report <- function(
 
   if (nrow(failed_rules_df) > 0) {
     failed_rules_df <- failed_rules_df |> mutate(cta_button = "Learn More")
-    options(reactable.static = TRUE)
     react_table <- reactable::reactable(
       failed_rules_df,
       defaultColDef = reactable::colDef(show = FALSE),
