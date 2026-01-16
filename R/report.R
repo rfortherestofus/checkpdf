@@ -118,8 +118,8 @@ accessibility_report <- function(
   }
 
   if (nrow(failed_rules_df) > 0) {
-    # Create info icon buttons for each row with data attributes
-    failed_rules_df <- failed_rules_df |>
+    # Generate card HTML for each issue
+    cards_html <- failed_rules_df |>
       mutate(
         iso_clean = gsub("ISO ", "", spec),
         # Escape special characters for HTML attributes
@@ -128,62 +128,39 @@ accessibility_report <- function(
         iso_clean_escaped = gsub('"', '&quot;', iso_clean),
         clause_escaped = gsub('"', '&quot;', clause),
         description_escaped = gsub('"', '&quot;', description),
-        info_button = paste0(
-          '<button class="info-icon-btn" ',
+        card_html = paste0(
+          '<div class="issue-card">',
+          '<div class="issue-card-header">',
+          '<div class="issue-card-label">',
+          '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>',
+          'Issue</div>',
+          '<div class="issue-card-message">', htmltools::htmlEscape(user_message), '</div>',
+          '</div>',
+          '<div class="issue-card-body">',
+          '<div class="issue-card-label">',
+          '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>',
+          'Fix</div>',
+          '<div class="issue-card-fix">', htmltools::htmlEscape(how_to_fix), '</div>',
+          '</div>',
+          '<div class="issue-card-footer">',
+          '<button class="more-info-btn" ',
           'data-rule-id="', rule_id_escaped, '" ',
           'data-explanation="', user_message_escaped, '" ',
           'data-iso="', iso_clean_escaped, '" ',
           'data-clause="', clause_escaped, '" ',
-          'data-verapdf="', description_escaped, '" ',
-          'aria-label="View details">',
-          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" ',
-          'viewBox="0 0 24 24" fill="none" stroke="currentColor" ',
-          'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">',
-          '<circle cx="12" cy="12" r="10"></circle>',
-          '<line x1="12" y1="16" x2="12" y2="12"></line>',
-          '<line x1="12" y1="8" x2="12.01" y2="8"></line>',
-          '</svg></button>'
+          'data-verapdf="', description_escaped, '">',
+          'More info <span class="arrow">&rarr;</span>',
+          '</button>',
+          '</div>',
+          '</div>'
         )
-      )
+      ) |>
+      pull(card_html) |>
+      paste0(collapse = "\n")
 
-    react_table <- reactable::reactable(
-      failed_rules_df,
-      defaultColDef = reactable::colDef(show = FALSE),
-      columns = list(
-        user_message = reactable::colDef(
-          name = "Issue description",
-          show = TRUE
-        ),
-        how_to_fix = reactable::colDef(
-          name = "How to fix",
-          show = TRUE
-        ),
-        info_button = reactable::colDef(
-          name = "",
-          width = 70,
-          show = TRUE,
-          html = TRUE,
-          align = "center"
-        )
-      ),
-      searchable = TRUE,
-      striped = TRUE,
-      highlight = TRUE,
-      theme = reactable::reactableTheme(
-        borderColor = "#dfe2e5",
-        stripedColor = "#f6f8fa",
-        cellPadding = "8px 12px",
-        style = list(
-          fontFamily = "Inter, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"
-        ),
-        searchInputStyle = list(width = "40%")
-      )
-    )
-    table_file <- tempfile(fileext = ".html")
-    htmlwidgets::saveWidget(react_table, table_file)
-    table_html <- readLines(table_file) |> paste0(collapse = "\n")
+    cards_html <- paste0('<div class="issue-cards-container">', cards_html, '</div>')
   } else {
-    table_html <- ""
+    cards_html <- ""
   }
 
   css <- system.file("report", "style.css", package = "pdfcheck") |>
@@ -193,7 +170,7 @@ accessibility_report <- function(
   if (!is_compliant) {
     issue_section <- '
     <br>
-    <h2 class="section-title">Issues requiring attention</h2>
+    <h2 class="section-title">Issues Requiring Attention</h2>
     <br>
 '
   } else {
@@ -201,22 +178,84 @@ accessibility_report <- function(
   }
 
   modal_css <- '
-    .info-icon-btn {
-      background: none;
-      border: none;
+    /* Issue Cards */
+    .issue-cards-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .issue-card {
+      background: #f9fafb;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(17, 24, 39, 0.05);
+      overflow: hidden;
+      font-family: "Inter", Roboto, Arial, sans-serif;
+    }
+    .issue-card-header {
+      padding: 24px 24px 20px 24px;
+    }
+    .issue-card-label {
+      font-size: 0.75em;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .issue-card-label svg {
+      flex-shrink: 0;
+    }
+    .issue-card-message {
+      font-size: 1em;
+      font-weight: 400;
+      color: #111827;
+      line-height: 1.65;
+    }
+    .issue-card-body {
+      padding: 24px;
+      border-top: 1px solid rgba(17, 24, 39, 0.05);
+    }
+    .issue-card-fix {
+      font-size: 0.95em;
+      color: #4b5563;
+      line-height: 1.65;
+    }
+    .issue-card-footer {
+      padding: 24px;
+      border-top: 1px solid rgba(17, 24, 39, 0.05);
+    }
+    .more-info-btn {
+      background: transparent;
       cursor: pointer;
-      color: #667eea;
-      padding: 4px;
-      border-radius: 4px;
+      color: #6b7280;
+      font-family: "Inter", Roboto, Arial, sans-serif;
+      font-size: 0.8em;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 9999px;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s, color 0.2s;
+      gap: 6px;
+      border: 1px solid #d1d5db;
+      transition: all 0.2s;
     }
-    .info-icon-btn:hover {
-      background-color: #f0f0f0;
-      color: #5a6fd6;
+    .more-info-btn:hover {
+      background-color: #f3f4f6;
+      color: #4b5563;
+      border-color: #9ca3af;
     }
+    .more-info-btn .arrow {
+      transition: transform 0.2s;
+    }
+    .more-info-btn:hover .arrow {
+      transform: translateX(3px);
+    }
+
+    /* Modal */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -293,7 +332,7 @@ accessibility_report <- function(
     }
 
     document.addEventListener("click", function(e) {
-      const btn = e.target.closest(".info-icon-btn");
+      const btn = e.target.closest(".more-info-btn");
       if (btn) {
         document.getElementById("modal-rule-id").textContent = btn.dataset.ruleId || "";
         document.getElementById("modal-explanation").textContent = btn.dataset.explanation || "";
@@ -337,7 +376,7 @@ accessibility_report <- function(
             <div class="meta-info">
                 <strong>Validation profile:</strong> {toupper(profile)} |
                 <strong>VeraPDF version:</strong> {verapdf_version} |
-                <strong>Report generated:</strong> {format(Sys.time(), "%Y-%m-%d %H:%M:%S")}
+                <strong>Report generated:</strong> {sub("AM", "am", sub("PM", "pm", format(Sys.time(), "%B %d, %Y at %I:%M%p")))}
             </div>
 
             <div class="stats-grid">
@@ -352,7 +391,7 @@ accessibility_report <- function(
             </div>
 
             {issue_section}
-            {table_html}
+            {cards_html}
         </div>
 
         <div class="footer">
