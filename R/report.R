@@ -4,19 +4,19 @@
 #' Generates an HTML report on accessibility for a given PDF.
 #'
 #' @param file PDF file to check.
-#' @param profile The validation profile to use. Default to `"ua1"` (recommended).
-#' @param output_file Path for the HTML report. If NULL, creates a temp file.
-#' @param open Whether to automatically open the report in browser. Default TRUE.
+#' @param profile The validation profile to use. Default to `"ua1"`.
+#' @param output_file Path for the HTML report. If `NULL`, creates a temp file.
+#' @param open Whether to automatically open the report in browser. Default `TRUE`.
 #'
 #' @return Path to the generated HTML report (invisibly)
 #'
-#' @import glue utils
+#' @import glue utils dplyr htmltools htmlwidgets
 #'
 #' @export
 accessibility_report <- function(
   file,
   profile = "ua1",
-  output_file = NULL,
+  output_file = tempfile(fileext = ".html"),
   open = TRUE
 ) {
   json <- verapdf(file = file, profile = profile)
@@ -38,13 +38,10 @@ accessibility_report <- function(
   )
   explanations <- read.csv(explanations_file, stringsAsFactors = FALSE)
 
-  if (is.null(output_file)) {
-    output_file <- tempfile(fileext = ".html")
-  }
-
   status_class <- if (is_compliant) "compliant" else "non-compliant"
 
-  failed_rules_rows <- ""
+  failed_rules_df <- tibble::tibble()
+
   if (length(failed_rules) > 0) {
     # Aggregate failed rules to avoid duplicates
     # Group by spec, clause, testNumber and sum failedChecks
@@ -63,24 +60,16 @@ accessibility_report <- function(
         clause <- fr$clause[j]
         test_num <- fr$testNumber[j]
         desc <- fr$description[j]
-        checks <- fr$failedChecks[j]
 
-        # Create unique key for this rule
         rule_key <- paste0(spec, "|", clause, "|", test_num)
 
         if (is.null(aggregated_rules[[rule_key]])) {
-          # First time seeing this rule
           aggregated_rules[[rule_key]] <- list(
             specification = spec,
             clause = clause,
             testNumber = test_num,
-            description = desc,
-            failedChecks = checks
+            description = desc
           )
-        } else {
-          # Already seen this rule, add to the count
-          aggregated_rules[[rule_key]]$failedChecks <-
-            aggregated_rules[[rule_key]]$failedChecks + checks
         }
       }
     }
@@ -110,59 +99,94 @@ accessibility_report <- function(
         "No user-friendly explanation available."
       }
 
-      failed_rules_rows <- paste0(
-        failed_rules_rows,
-        sprintf(
-          '
-                    <tr class="issue-row">
-                        <td class="spec-cell">%s</td>
-                        <td class="clause-cell">%s</td>
-                        <td class="desc-cell">%s</td>
-                        <td class="explanation-cell">%s</td>
-                        <td class="count-cell">%d</td>
-                    </tr>',
-          spec,
-          clause,
-          fr$description,
-          user_message,
-          fr$failedChecks
-        )
-      )
+      failed_rules_df <- failed_rules_df |>
+        bind_rows(data.frame(
+          rule_id = c(rule_id),
+          spec = c(spec),
+          clause = c(clause),
+          description = c(fr$description),
+          user_message = c(user_message)
+        ))
     }
+  }
+
+  if (nrow(failed_rules_df) > 0) {
+    react_table <- reactable::reactable(
+      failed_rules_df,
+      defaultColDef = reactable::colDef(show = FALSE),
+      columns = list(
+        user_message = reactable::colDef(
+          name = "Issue description",
+          show = TRUE
+        ),
+        rule_id = reactable::colDef(name = "Rule ID", width = 250, show = TRUE)
+      ),
+      rowStyle = list(cursor = "pointer"),
+      searchable = TRUE,
+      striped = TRUE,
+      highlight = TRUE,
+      theme = reactable::reactableTheme(
+        borderColor = "#dfe2e5",
+        stripedColor = "#f6f8fa",
+        cellPadding = "8px 12px",
+        style = list(
+          fontFamily = "Inter, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"
+        ),
+        searchInputStyle = list(width = "40%")
+      ),
+      onClick = JS(
+        "function(rowInfo, column) {
+    // Extract data from the row
+    const data = rowInfo.values;
+    const rawData = rowInfo.row; // Access hidden columns
+    
+    // Build the modal content
+    const content = `
+      <div id='custom-modal' style='position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;'>
+        <div style='background:white; padding:30px; border-radius:8px; max-width:600px; width:90%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); position:relative; font-family: sans-serif;'>
+          <span id='close-modal' style='position:absolute; top:10px; right:15px; cursor:pointer; font-size:24px; color:#aaa;'>&times;</span>
+          <h2 style='margin-top:0; color:#2c3e50;'>Rule Details</h2>
+          <hr style='border:0; border-top:1px solid #eee; margin:15px 0;'>
+          <p><strong>Rule ID:</strong> ${rawData.rule_id}</p>
+          <p><strong>Explanation:</strong> ${rawData.user_message}</p>
+          <p><strong>ISO:</strong> ${rawData.spec.replace('ISO ', '')}</p>
+          <p><strong>Clause:</strong> ${rawData.clause}</p>
+          <p><strong>veraPDF Issue:</strong> ${rawData.description}</p>
+        </div>
+      </div>
+    `;
+    
+    // Inject modal into body
+    document.body.insertAdjacentHTML('beforeend', content);
+    
+    // Close logic
+    const modal = document.getElementById('custom-modal');
+    modal.onclick = function(e) {
+      if (e.target.id === 'custom-modal' || e.target.id === 'close-modal') {
+        modal.remove();
+      }
+    };
+  }"
+      )
+    )
+    table_file <- tempfile(fileext = ".html")
+    htmlwidgets::saveWidget(react_table, table_file)
+    table_html <- readLines(table_file) |> paste0(collapse = "\n")
   } else {
-    failed_rules_rows <- '<tr><td colspan="5" class="no-issues">No issues found</td></tr>'
+    table_html <- ""
   }
 
   css <- system.file("report", "style.css", package = "pdfcheck") |>
     readLines() |>
     paste0(collapse = "\n")
 
-  issues_section <- ""
   if (!is_compliant) {
-    issues_section <- sprintf(
-      '
-            <br>
-
-            <h2 class="section-title">Issues requiring attention</h2>
-            
-            <table class="issues-table">
-                <thead>
-                    <tr>
-                        <th>Specification</th>
-                        <th>Clause</th>
-                        <th>Description</th>
-                        <th>Explanation</th>
-                        <th>Failed Checks</th>
-                    </tr>
-                </thead>
-                <tbody>%s
-                </tbody>
-            </table>',
-      failed_rules_rows |> paste0(collapse = "\n")
-    )
+    issue_section <- '<br><h2 class="section-title">Issues requiring attention</h2>'
+  } else {
+    issue_section <- ""
   }
 
-  html_content <- sprintf(
+  html_content <- glue(
     '<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,68 +196,47 @@ accessibility_report <- function(
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <style>
-        %s
-    </style>
+    <style>{css}</style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>PDF accessibility report</h1>
-            <div class="filename">%s</div>
+            <div class="filename">{basename(file)}</div>
         </div>
         
         <div class="content">
-            <div class="status-banner %s">
-                %s
+            <div class="status-banner {status_class}">
+                {status_class}
             </div>
             
             <div class="meta-info">
-                <strong>Validation profile:</strong> %s | 
-                <strong>VeraPDF version:</strong> %s | 
-                <strong>Report generated:</strong> %s
+                <strong>Validation profile:</strong> {toupper(profile)} | 
+                <strong>VeraPDF version:</strong> {verapdf_version} | 
+                <strong>Report generated:</strong> {format(Sys.time(), "%Y-%m-%d %H:%M:%S")}
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card passed">
-                    <div class="stat-number">%d</div>
+                    <div class="stat-number">{n_passed_rules}</div>
                     <div class="stat-label">Passed Rules</div>
                 </div>
-                <div class="stat-card passed">
-                    <div class="stat-number">%d</div>
-                    <div class="stat-label">Passed Checks</div>
-                </div>
                 <div class="stat-card failed">
-                    <div class="stat-number">%d</div>
+                    <div class="stat-number">{n_failed_rules}</div>
                     <div class="stat-label">Failed Rules</div>
-                </div>
-                <div class="stat-card failed">
-                    <div class="stat-number">%d</div>
-                    <div class="stat-label">Failed Checks</div>
                 </div>
             </div>
             
-            %s
+            {issue_section}
+            {table_html}
         </div>
         
         <div class="footer">
-            Generated by <a href="https://github.com/rfortherestofus/pdfcheck/" target="_blank"><code>{pdfcheck}</code></a> | <a href="https://rfortherestofus.com/" target="_blank">R for the Rest of Us</a>
+            Generated by <a href="https://pdfcheck.org" target="_blank"><code>pdfcheck</code></a> | <a href="https://rfortherestofus.com/" target="_blank">R for the Rest of Us</a>
         </div>
     </div>
 </body>
-</html>',
-    css,
-    basename(file),
-    status_class,
-    status_class,
-    toupper(profile),
-    verapdf_version,
-    format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
-    n_passed_rules,
-    n_passed_checks,
-    n_failed_rules,
-    n_failed_check,
-    issues_section
+</html>'
   )
 
   writeLines(html_content, output_file)

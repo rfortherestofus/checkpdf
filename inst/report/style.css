@@ -13,7 +13,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   background: white;
   border-radius: 20px;
@@ -130,10 +130,6 @@ body {
   border-bottom: 1px solid #e9ecef;
 }
 
-.issue-row:hover {
-  background-color: #f8f9fa;
-}
-
 .spec-cell {
   font-weight: 600;
   color: #667eea;
@@ -188,4 +184,12 @@ body {
   margin-bottom: 30px;
   font-size: 0.95em;
   color: #666;
+}
+
+#htmlwidget_container {
+  font-size: 1.2rem;
+}
+
+.rt-td-inner {
+  padding: 30px 20px !important;
 }
